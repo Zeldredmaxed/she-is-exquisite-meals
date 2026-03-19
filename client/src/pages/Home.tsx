@@ -10,15 +10,22 @@ import { toast } from "sonner";
 const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663386607820/QjYBc4dVKTa2C8xKYrF7gq/logo-transparent_6c7ecaff.png";
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663386607820/QjYBc4dVKTa2C8xKYrF7gq/hero-food-1_fbbf3fc2.jpg";
 const GALLERY_IMAGES = [
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663386607820/QjYBc4dVKTa2C8xKYrF7gq/gallery-1_024169cd.jpg",
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663386607820/QjYBc4dVKTa2C8xKYrF7gq/gallery-2_bde4e630.jpg",
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663386607820/QjYBc4dVKTa2C8xKYrF7gq/gallery-3_defb67af.jpg",
+  "/instagram-images/img1.jpg",
+  "/instagram-images/img2.jpg",
+  "/instagram-images/img3.jpg",
+];
+
+const INSTAGRAM_IMAGES = [
+  "/instagram-images/img1.jpg",
+  "/instagram-images/img2.jpg",
+  "/instagram-images/img3.jpg",
 ];
 
 const NAV_LINKS = [
   { label: "Services", href: "#services" },
   { label: "Menu", href: "#menu" },
   { label: "About", href: "#about" },
+  { label: "Instagram", href: "#instagram-feed" },
   { label: "Gallery", href: "#gallery" },
   { label: "Contact", href: "#contact" },
 ];
@@ -268,6 +275,44 @@ export default function Home() {
                 Whether you're looking for convenient meal prep, professional catering, or intimate family dining, we're here to deliver an exquisite experience that exceeds your expectations.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Instagram Feed Section */}
+      <section id="instagram-feed" className="section-padding bg-white">
+        <div className="container">
+          <div className="section-title">
+            <h2 className="brand-heading text-primary mb-4">Follow Us on Instagram</h2>
+            <p className="text-lg text-muted-foreground">Stay updated with our latest culinary creations</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {INSTAGRAM_IMAGES.map((image, idx) => (
+              <div
+                key={idx}
+                className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition cursor-pointer group h-64"
+                onClick={() => setSelectedImage(image)}
+              >
+                <img
+                  src={image}
+                  alt={`Instagram ${idx + 1}`}
+                  className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition"></div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <a
+              href="https://www.instagram.com/sheisexquisitemeals/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-8 rounded-lg transition"
+            >
+              View More on Instagram
+            </a>
           </div>
         </div>
       </section>
