@@ -16,9 +16,12 @@ const GALLERY_IMAGES = [
 ];
 
 const INSTAGRAM_IMAGES = [
-  "/instagram-images/img1.jpg",
-  "/instagram-images/img2.jpg",
-  "/instagram-images/img3.jpg",
+  "/instagram-images/food_1.jpeg",
+  "/instagram-images/food_2.jpeg",
+  "/instagram-images/food_3.jpeg",
+  "/instagram-images/food_4.jpeg",
+  "/instagram-images/food_5.jpeg",
+  "/instagram-images/food_6.jpeg",
 ];
 
 const NAV_LINKS = [
@@ -287,7 +290,7 @@ export default function Home() {
             <p className="text-lg text-muted-foreground">Stay updated with our latest culinary creations</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-6xl mx-auto">
             {INSTAGRAM_IMAGES.map((image, idx) => (
               <div
                 key={idx}
