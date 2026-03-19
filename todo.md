@@ -69,6 +69,7 @@
 - [x] Make logo transparent with floating effect
 - [x] Add mobile hamburger menu
 - [x] Ensure menu options visible on mobile
+- [x] Remove white background from logo image
 
 ### Deployment
 - [ ] Final checkpoint before publishing

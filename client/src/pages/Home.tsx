@@ -7,7 +7,7 @@ import { Leaf, Heart, Users, Mail, Phone, MapPin, Menu, X } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 
-const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663386607820/QjYBc4dVKTa2C8xKYrF7gq/logo-upscaled_e56ee9ef.png";
+const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663386607820/QjYBc4dVKTa2C8xKYrF7gq/logo-transparent_6c7ecaff.png";
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663386607820/QjYBc4dVKTa2C8xKYrF7gq/hero-food-1_fbbf3fc2.jpg";
 const GALLERY_IMAGES = [
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663386607820/QjYBc4dVKTa2C8xKYrF7gq/gallery-1_024169cd.jpg",
