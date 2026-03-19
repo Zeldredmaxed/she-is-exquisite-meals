@@ -45,10 +45,10 @@
 }
 
 :root {
-  --primary: oklch(0.35 0.15 142);
-  --primary-foreground: oklch(0.98 0.001 286.375);
-  --sidebar-primary: oklch(0.35 0.15 142);
-  --sidebar-primary-foreground: oklch(0.98 0.001 286.375);
+  --primary: oklch(0.7 0.12 70); /* Elegant Gold */
+  --primary-foreground: oklch(0.15 0.01 65); /* Darker contrast */
+  --sidebar-primary: oklch(0.7 0.12 70);
+  --sidebar-primary-foreground: oklch(0.15 0.01 65);
   --chart-1: oklch(0.55 0.15 142);
   --chart-2: oklch(0.45 0.15 142);
   --chart-3: oklch(0.40 0.15 142);

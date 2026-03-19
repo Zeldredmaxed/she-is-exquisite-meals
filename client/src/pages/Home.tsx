@@ -3,34 +3,24 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Leaf, Heart, Users, Mail, Phone, MapPin, Menu, X } from "lucide-react";
-import { trpc } from "@/lib/trpc";
+import { Utensils, Heart, Users, Mail, Phone, MapPin, Menu, X, Star, Calendar, Clock } from "lucide-react";
 import { toast } from "sonner";
 
 const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663386607820/QjYBc4dVKTa2C8xKYrF7gq/logo-transparent_6c7ecaff.png";
-const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663386607820/QjYBc4dVKTa2C8xKYrF7gq/hero-food-1_fbbf3fc2.jpg";
+const HERO_IMAGE = "/catering-images/food1.jpg";
 const GALLERY_IMAGES = [
-  "/instagram-images/img1.jpg",
-  "/instagram-images/img2.jpg",
-  "/instagram-images/img3.jpg",
-];
-
-const INSTAGRAM_IMAGES = [
-  "/instagram-images/food_1.jpeg",
-  "/instagram-images/food_2.jpeg",
-  "/instagram-images/food_3.jpeg",
-  "/instagram-images/food_4.jpeg",
-  "/instagram-images/food_5.jpeg",
-  "/instagram-images/food_6.jpeg",
+  "/catering-images/food1.jpg",
+  "/catering-images/food2.jpg",
+  "/catering-images/food3.jpg",
+  "/catering-images/food4.jpg",
 ];
 
 const NAV_LINKS = [
-  { label: "Services", href: "#services" },
-  { label: "Menu", href: "#menu" },
+  { label: "Experience", href: "#experience" },
+  { label: "Offerings", href: "#offerings" },
   { label: "About", href: "#about" },
-  { label: "Instagram", href: "#instagram-feed" },
   { label: "Gallery", href: "#gallery" },
-  { label: "Contact", href: "#contact" },
+  { label: "Book Now", href: "#contact" },
 ];
 
 export default function Home() {
@@ -55,7 +45,6 @@ export default function Home() {
     setIsSubmitting(true);
     
     try {
-      // Call the backend to send email notification
       const response = await fetch("/api/trpc/contact.submit?batch=1", {
         method: "POST",
         headers: {
@@ -69,7 +58,7 @@ export default function Home() {
       });
 
       if (response.ok) {
-        toast.success("Thank you! We'll be in touch soon.");
+        toast.success("Thank you for your inquiry. We will contact you shortly to discuss your exquisite experience.");
         setFormData({ name: "", email: "", phone: "", message: "", serviceType: "inquiry" });
       } else {
         toast.error("Failed to send message. Please try again.");
@@ -82,400 +71,332 @@ export default function Home() {
     }
   };
 
-  const handleNavClick = () => {
-    setMobileMenuOpen(false);
-  };
-
   return (
-    <div className="min-h-screen bg-background">
-      {/* Floating Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-8 py-4">
-        {/* Logo */}
+    <div className="min-h-screen bg-[#faf9f6] text-[#2c2c2c] font-sans">
+      {/* Elegant Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gold/10 px-6 md:px-12 py-4 flex items-center justify-between">
         <div className="flex items-center">
-          <img src={LOGO_URL} alt="She Is Exquisite Meals" className="h-12 md:h-16 w-auto drop-shadow-lg" />
+          <img src={LOGO_URL} alt="She Is Exquisite Meals" className="h-10 md:h-14 w-auto" />
         </div>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-10">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-white hover:text-primary transition font-medium drop-shadow-md"
+              className="text-sm uppercase tracking-[0.2em] hover:text-primary transition-colors duration-300 font-medium"
             >
               {link.label}
             </a>
           ))}
         </div>
 
-        {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-white drop-shadow-lg"
+          className="md:hidden text-primary"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
-          {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
-        <div className="fixed top-16 left-0 right-0 z-40 bg-black/95 backdrop-blur md:hidden">
-          <div className="flex flex-col items-center gap-4 py-6 px-4">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-white hover:text-primary transition font-medium text-lg"
-                onClick={handleNavClick}
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
+        <div className="fixed inset-0 z-40 bg-white flex flex-col items-center justify-center gap-8 md:hidden">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="text-xl uppercase tracking-widest hover:text-primary transition"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
       )}
 
-      {/* Hero Section */}
+      {/* Hero Section - Exquisite & Impactful */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center scale-105 animate-subtle-zoom"
           style={{ backgroundImage: `url('${HERO_IMAGE}')` }}
         >
-          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute inset-0 bg-black/50"></div>
         </div>
-        <div className="relative z-10 text-center text-white px-4 max-w-3xl">
-          <h1 className="font-serif text-5xl md:text-7xl font-bold mb-6">She Is Exquisite Meals</h1>
-          <p className="text-xl md:text-2xl mb-8 font-light">Crafted with Love, Prepared with Perfection</p>
-          <p className="text-lg md:text-xl mb-8 opacity-90">Premium meal prep, catering, and intimate family dining experiences</p>
-          <Button size="lg" className="bg-primary hover:bg-primary/90 text-white">
-            Book Your Meal
-          </Button>
+        <div className="relative z-10 text-center text-white px-4 max-w-4xl">
+          <div className="mb-6 flex justify-center">
+            <div className="h-[1px] w-12 bg-white/60 self-center"></div>
+            <span className="mx-4 text-xs uppercase tracking-[0.4em] font-light">Fine Dining & Catering</span>
+            <div className="h-[1px] w-12 bg-white/60 self-center"></div>
+          </div>
+          <h1 className="font-serif text-6xl md:text-8xl font-light mb-8 leading-tight italic drop-shadow-2xl">
+            She Is Exquisite
+          </h1>
+          <p className="text-xl md:text-2xl mb-12 font-light tracking-wide max-w-2xl mx-auto drop-shadow-lg">
+            A culinary journey crafted with passion, elegance, and the finest ingredients.
+          </p>
+          <div className="flex flex-col md:flex-row gap-6 justify-center">
+            <Button size="lg" className="bg-white text-black hover:bg-gray-100 px-10 py-7 rounded-none text-sm uppercase tracking-widest transition-all duration-500 border border-white">
+              <a href="#contact">Book An Experience</a>
+            </Button>
+            <Button size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-black px-10 py-7 rounded-none text-sm uppercase tracking-widest transition-all duration-500">
+              <a href="#offerings">View Offerings</a>
+            </Button>
+          </div>
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="section-padding bg-white">
-        <div className="container">
-          <div className="section-title">
-            <h2 className="brand-heading text-primary mb-4">Our Services</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              We offer a variety of services tailored to your needs, all prepared with the highest quality ingredients and care.
+      {/* Experience / Services Section */}
+      <section id="experience" className="py-24 md:py-32 px-6">
+        <div className="container max-w-6xl mx-auto">
+          <div className="text-center mb-20">
+            <h2 className="font-serif text-4xl md:text-5xl italic mb-6">The Exquisite Experience</h2>
+            <div className="w-20 h-[1px] bg-primary mx-auto mb-8"></div>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-light leading-relaxed">
+              We specialize in transforming fresh, premium ingredients into unforgettable culinary masterpieces, 
+              tailored for those who appreciate the finer things in life.
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Meal Prep */}
-            <Card className="border-0 shadow-lg hover:shadow-xl transition">
-              <CardHeader>
-                <Leaf className="w-12 h-12 text-primary mb-4" />
-                <CardTitle className="font-serif text-2xl">Meal Prep</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Healthy, delicious meals prepared fresh and ready for your week. No MSG, no salt—just pure, quality ingredients.
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Catering */}
-            <Card className="border-0 shadow-lg hover:shadow-xl transition">
-              <CardHeader>
-                <Users className="w-12 h-12 text-primary mb-4" />
-                <CardTitle className="font-serif text-2xl">Catering</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Professional catering for events of any size. From intimate gatherings to large celebrations, we handle it all.
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Family Meals */}
-            <Card className="border-0 shadow-lg hover:shadow-xl transition">
-              <CardHeader>
-                <Heart className="w-12 h-12 text-primary mb-4" />
-                <CardTitle className="font-serif text-2xl">Family Meals</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Intimate family dining experiences with home-style cooking that brings people together around the table.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Menu Section */}
-      <section id="menu" className="section-padding bg-slate-50">
-        <div className="container">
-          <div className="section-title">
-            <h2 className="brand-heading text-primary mb-4">Our Offerings</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Explore our carefully curated menu of fresh, flavorful options.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {[
-              { name: "Classic Meal Prep Boxes", price: "$45-65", desc: "5-7 fresh meals with protein, vegetables, and grains" },
-              { name: "Premium Catering Packages", price: "$25-40/person", desc: "Full-service catering for events and gatherings" },
-              { name: "Chef's Special Menu", price: "Custom", desc: "Personalized menus tailored to your preferences" },
-              { name: "Family Dinner Packages", price: "$80-150", desc: "Complete meals for 4-6 people, ready to enjoy" },
-            ].map((item, idx) => (
-              <Card key={idx} className="border-0 shadow-md hover:shadow-lg transition">
-                <CardHeader>
-                  <CardTitle className="font-serif text-xl">{item.name}</CardTitle>
-                  <CardDescription className="text-primary font-semibold text-lg">{item.price}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">{item.desc}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="section-padding bg-white">
-        <div className="container">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="brand-heading text-primary mb-8 text-center">About Us</h2>
-            
-            <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
-              <p>
-                At She Is Exquisite Meals, we believe that exceptional food is more than just sustenance—it's an expression of care, quality, and passion. Every dish we prepare carries the commitment to excellence that defines our brand.
-              </p>
-
-              <div className="bg-slate-50 p-8 rounded-lg border-l-4 border-primary">
-                <h3 className="font-serif text-2xl text-primary mb-4">Our Quality Commitment</h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary font-bold">✓</span>
-                    <span><strong>No MSG</strong> — We never use monosodium glutamate in any of our meals</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary font-bold">✓</span>
-                    <span><strong>No Added Salt</strong> — We let the natural flavors of quality ingredients shine</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary font-bold">✓</span>
-                    <span><strong>Fresh Ingredients</strong> — We source the finest, freshest ingredients available</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary font-bold">✓</span>
-                    <span><strong>Prepared Fresh</strong> — Every meal is prepared to order with meticulous attention to detail</span>
-                  </li>
-                </ul>
+          <div className="grid md:grid-cols-3 gap-16">
+            <div className="text-center group">
+              <div className="mb-8 relative inline-block">
+                <div className="absolute -inset-4 border border-primary/20 rounded-full group-hover:scale-110 transition-transform duration-500"></div>
+                <Utensils className="w-10 h-10 text-primary relative z-10" />
               </div>
-
-              <p>
-                Our approach to cooking is rooted in the tradition of home-style preparation—where every ingredient matters and every dish is crafted with intention. We believe that when you prepare food with care and use only the best ingredients, the results speak for themselves.
+              <h3 className="font-serif text-2xl mb-4 italic">Gourmet Meal Prep</h3>
+              <p className="text-muted-foreground font-light leading-relaxed">
+                Elevate your daily dining with chef-curated meals. Prepared fresh, balanced, and delivered with sophistication.
               </p>
+            </div>
 
-              <p>
-                Whether you're looking for convenient meal prep, professional catering, or intimate family dining, we're here to deliver an exquisite experience that exceeds your expectations.
+            <div className="text-center group">
+              <div className="mb-8 relative inline-block">
+                <div className="absolute -inset-4 border border-primary/20 rounded-full group-hover:scale-110 transition-transform duration-500"></div>
+                <Users className="w-10 h-10 text-primary relative z-10" />
+              </div>
+              <h3 className="font-serif text-2xl mb-4 italic">Bespoke Catering</h3>
+              <p className="text-muted-foreground font-light leading-relaxed">
+                From intimate soirées to grand celebrations, we provide a full-service catering experience that leaves a lasting impression.
+              </p>
+            </div>
+
+            <div className="text-center group">
+              <div className="mb-8 relative inline-block">
+                <div className="absolute -inset-4 border border-primary/20 rounded-full group-hover:scale-110 transition-transform duration-500"></div>
+                <Heart className="w-10 h-10 text-primary relative z-10" />
+              </div>
+              <h3 className="font-serif text-2xl mb-4 italic">Private Chef Dining</h3>
+              <p className="text-muted-foreground font-light leading-relaxed">
+                Bring the luxury of a fine-dining restaurant to your home. Personalized menus crafted for your most cherished moments.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Instagram Feed Section */}
-      <section id="instagram-feed" className="section-padding bg-white">
-        <div className="container">
-          <div className="section-title">
-            <h2 className="brand-heading text-primary mb-4">Follow Us on Instagram</h2>
-            <p className="text-lg text-muted-foreground">Stay updated with our latest culinary creations</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-6xl mx-auto">
-            {INSTAGRAM_IMAGES.map((image, idx) => (
-              <div
-                key={idx}
-                className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition cursor-pointer group h-64"
-                onClick={() => setSelectedImage(image)}
-              >
-                <img
-                  src={image}
-                  alt={`Instagram ${idx + 1}`}
-                  className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition"></div>
+      {/* Offerings Section */}
+      <section id="offerings" className="py-24 md:py-32 bg-[#1a1a1a] text-white">
+        <div className="container max-w-6xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-20 items-center">
+            <div>
+              <span className="text-primary uppercase tracking-[0.3em] text-xs mb-4 block">Our Curation</span>
+              <h2 className="font-serif text-4xl md:text-5xl italic mb-8">Culinary Offerings</h2>
+              <p className="text-gray-400 font-light text-lg mb-12 leading-relaxed">
+                Each dish is a testament to our commitment to quality. We use no MSG and no added salt, 
+                allowing the natural, exquisite flavors of our premium ingredients to shine through.
+              </p>
+              
+              <div className="space-y-10">
+                {[
+                  { name: "Signature Meal Prep Boxes", price: "From $65", desc: "A week of gourmet nourishment, meticulously portioned." },
+                  { name: "Elite Event Catering", price: "Inquire for Quote", desc: "Customized menus designed for your specific occasion." },
+                  { name: "Chef's Tasting Experience", price: "Custom", desc: "A multi-course journey through our finest seasonal creations." },
+                ].map((item, idx) => (
+                  <div key={idx} className="border-b border-white/10 pb-6 group cursor-pointer">
+                    <div className="flex justify-between items-baseline mb-2">
+                      <h4 className="font-serif text-xl group-hover:text-primary transition-colors">{item.name}</h4>
+                      <span className="text-sm font-light tracking-widest text-primary">{item.price}</span>
+                    </div>
+                    <p className="text-gray-500 font-light text-sm italic">{item.desc}</p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-8">
-            <a
-              href="https://www.instagram.com/sheisexquisitemeals/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-8 rounded-lg transition"
-            >
-              View More on Instagram
-            </a>
+            </div>
+            
+            <div className="relative">
+              <div className="aspect-[4/5] overflow-hidden border border-white/10">
+                <img 
+                  src="/catering-images/food2.jpg" 
+                  alt="Gourmet Preparation" 
+                  className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
+                />
+              </div>
+              <div className="absolute -bottom-10 -left-10 w-64 h-64 border border-primary/30 -z-10 hidden md:block"></div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Gallery Section */}
-      <section id="gallery" className="section-padding bg-slate-50">
-        <div className="container">
-          <div className="section-title">
-            <h2 className="brand-heading text-primary mb-4">Our Work</h2>
-            <p className="text-lg text-muted-foreground">A glimpse into the culinary creations we prepare daily</p>
+      <section id="gallery" className="py-24 md:py-32 px-6 bg-white">
+        <div className="container max-w-7xl mx-auto">
+          <div className="text-center mb-20">
+            <h2 className="font-serif text-4xl md:text-5xl italic mb-6">Visual Feast</h2>
+            <p className="text-muted-foreground font-light tracking-widest uppercase text-xs">A glimpse into the exquisite</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {GALLERY_IMAGES.map((image, idx) => (
               <div
                 key={idx}
-                className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition cursor-pointer group h-64"
+                className="relative aspect-square overflow-hidden cursor-pointer group"
                 onClick={() => setSelectedImage(image)}
               >
                 <img
                   src={image}
-                  alt={`Gallery ${idx + 1}`}
-                  className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                  alt={`Exquisite Creation ${idx + 1}`}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition"></div>
+                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                  <span className="text-white text-xs uppercase tracking-[0.3em] border border-white/40 px-4 py-2">View Detail</span>
+                </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Lightbox Modal */}
+        {/* Lightbox */}
         {selectedImage && (
           <div
-            className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/95 z-[100] flex items-center justify-center p-6 md:p-12"
             onClick={() => setSelectedImage(null)}
           >
-            <div className="max-w-4xl w-full" onClick={e => e.stopPropagation()}>
-              <img src={selectedImage} alt="Gallery" className="w-full h-auto rounded-lg" />
+            <button className="absolute top-10 right-10 text-white hover:text-primary transition">
+              <X size={32} />
+            </button>
+            <div className="max-w-5xl w-full h-full flex items-center justify-center" onClick={e => e.stopPropagation()}>
+              <img src={selectedImage} alt="Exquisite Gallery" className="max-w-full max-h-full object-contain shadow-2xl" />
             </div>
           </div>
         )}
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="section-padding bg-white">
-        <div className="container">
-          <div className="max-w-4xl mx-auto">
-            <div className="section-title">
-              <h2 className="brand-heading text-primary mb-4">Get In Touch</h2>
-              <p className="text-lg text-muted-foreground">
-                Ready to experience exquisite meals? Contact us to book your service or ask any questions.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-12">
-              {/* Contact Info */}
-              <div className="space-y-8">
-                <div className="flex items-start gap-4">
-                  <Phone className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold text-lg mb-1">Phone</h3>
-                    <p className="text-muted-foreground">(248) 301-9668</p>
+      {/* Contact / Booking Section */}
+      <section id="contact" className="py-24 md:py-32 bg-[#faf9f6]">
+        <div className="container max-w-6xl mx-auto px-6">
+          <div className="bg-white shadow-2xl overflow-hidden flex flex-col md:flex-row">
+            <div className="md:w-1/3 bg-[#1a1a1a] text-white p-12 md:p-16 flex flex-col justify-between">
+              <div>
+                <h2 className="font-serif text-4xl italic mb-8">Reserve Your Date</h2>
+                <p className="text-gray-400 font-light mb-12">
+                  Allow us to curate a bespoke culinary experience for you. Please provide your details and we will contact you for a consultation.
+                </p>
+                
+                <div className="space-y-8">
+                  <div className="flex items-center gap-6 group">
+                    <div className="w-10 h-10 rounded-full border border-primary/30 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all">
+                      <Phone size={16} className="text-primary group-hover:text-white" />
+                    </div>
+                    <span className="text-sm font-light tracking-widest">(248) 301-9668</span>
                   </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <Mail className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold text-lg mb-1">Email</h3>
-                    <p className="text-muted-foreground">exquisitemeals@gmail.com</p>
+                  <div className="flex items-center gap-6 group">
+                    <div className="w-10 h-10 rounded-full border border-primary/30 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all">
+                      <Mail size={16} className="text-primary group-hover:text-white" />
+                    </div>
+                    <span className="text-sm font-light tracking-widest">exquisitemeals@gmail.com</span>
                   </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <MapPin className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold text-lg mb-1">Service Area</h3>
-                    <p className="text-muted-foreground">Michigan and surrounding areas</p>
+                  <div className="flex items-center gap-6 group">
+                    <div className="w-10 h-10 rounded-full border border-primary/30 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all">
+                      <MapPin size={16} className="text-primary group-hover:text-white" />
+                    </div>
+                    <span className="text-sm font-light tracking-widest">Michigan & Surrounding Areas</span>
                   </div>
-                </div>
-
-                <div className="bg-slate-50 p-6 rounded-lg">
-                  <h3 className="font-semibold text-lg mb-3">Hours</h3>
-                  <p className="text-muted-foreground">Monday - Friday: 9am - 6pm</p>
-                  <p className="text-muted-foreground">Saturday: 10am - 4pm</p>
-                  <p className="text-muted-foreground">Sunday: Closed</p>
                 </div>
               </div>
+              
+              <div className="mt-16 pt-8 border-t border-white/10">
+                <p className="text-[10px] uppercase tracking-[0.4em] text-gray-500">Excellence is in the details.</p>
+              </div>
+            </div>
 
-              {/* Contact Form */}
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium mb-2">Name</label>
+            <div className="md:w-2/3 p-12 md:p-16">
+              <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase tracking-widest font-semibold text-gray-400">Full Name</label>
                   <Input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    placeholder="Your name"
+                    placeholder="Enter your name"
+                    className="border-0 border-b border-gray-200 rounded-none px-0 focus-visible:ring-0 focus-visible:border-primary transition-all bg-transparent"
                     required
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium mb-2">Email</label>
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase tracking-widest font-semibold text-gray-400">Email Address</label>
                   <Input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="your@email.com"
+                    className="border-0 border-b border-gray-200 rounded-none px-0 focus-visible:ring-0 focus-visible:border-primary transition-all bg-transparent"
                     required
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium mb-2">Phone</label>
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase tracking-widest font-semibold text-gray-400">Phone Number</label>
                   <Input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    placeholder="(123) 456-7890"
+                    placeholder="(000) 000-0000"
+                    className="border-0 border-b border-gray-200 rounded-none px-0 focus-visible:ring-0 focus-visible:border-primary transition-all bg-transparent"
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium mb-2">Service Type</label>
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase tracking-widest font-semibold text-gray-400">Service Interest</label>
                   <select
                     name="serviceType"
                     value={formData.serviceType}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-input rounded-md bg-background"
+                    className="w-full border-0 border-b border-gray-200 rounded-none px-0 py-2 focus:outline-none focus:border-primary transition-all bg-transparent text-sm"
                   >
                     <option value="inquiry">General Inquiry</option>
-                    <option value="meal-prep">Meal Prep</option>
-                    <option value="catering">Catering</option>
-                    <option value="family-meals">Family Meals</option>
+                    <option value="meal-prep">Gourmet Meal Prep</option>
+                    <option value="catering">Bespoke Catering</option>
+                    <option value="private-chef">Private Chef Dining</option>
                   </select>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium mb-2">Message</label>
+                <div className="md:col-span-2 space-y-2">
+                  <label className="text-[10px] uppercase tracking-widest font-semibold text-gray-400">Your Vision</label>
                   <Textarea
                     name="message"
                     value={formData.message}
                     onChange={handleInputChange}
-                    placeholder="Tell us about your needs..."
-                    rows={5}
+                    placeholder="Tell us about your event or meal prep needs..."
+                    rows={4}
+                    className="border-0 border-b border-gray-200 rounded-none px-0 focus-visible:ring-0 focus-visible:border-primary transition-all bg-transparent resize-none"
                     required
                   />
                 </div>
 
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-primary hover:bg-primary/90 text-white"
-                >
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                </Button>
+                <div className="md:col-span-2 pt-6">
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-[#1a1a1a] hover:bg-primary text-white py-8 rounded-none text-xs uppercase tracking-[0.3em] transition-all duration-500"
+                  >
+                    {isSubmitting ? "Processing..." : "Submit Inquiry"}
+                  </Button>
+                </div>
               </form>
             </div>
           </div>
@@ -483,12 +404,35 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-primary text-white py-8">
-        <div className="container text-center">
-          <p className="mb-2">&copy; 2026 She Is Exquisite Meals. All rights reserved.</p>
-          <p className="text-sm opacity-90">Crafted with love, prepared with perfection.</p>
+      <footer className="bg-white py-20 border-t border-gray-100">
+        <div className="container max-w-6xl mx-auto px-6 text-center">
+          <img src={LOGO_URL} alt="Logo" className="h-16 mx-auto mb-10 opacity-80" />
+          <div className="flex justify-center gap-12 mb-12">
+            {NAV_LINKS.map(link => (
+              <a key={link.href} href={link.href} className="text-[10px] uppercase tracking-[0.2em] font-medium hover:text-primary transition">
+                {link.label}
+              </a>
+            ))}
+          </div>
+          <div className="w-12 h-[1px] bg-primary/30 mx-auto mb-10"></div>
+          <p className="text-[10px] uppercase tracking-[0.4em] text-gray-400 mb-2">
+            &copy; 2026 She Is Exquisite Meals
+          </p>
+          <p className="text-[10px] uppercase tracking-[0.4em] text-primary">
+            Crafted with Love. Prepared with Perfection.
+          </p>
         </div>
       </footer>
+      
+      <style>{`
+        @keyframes subtle-zoom {
+          0% { transform: scale(1.05); }
+          100% { transform: scale(1.15); }
+        }
+        .animate-subtle-zoom {
+          animation: subtle-zoom 20s infinite alternate ease-in-out;
+        }
+      `}</style>
     </div>
   );
 }
