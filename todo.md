@@ -71,6 +71,12 @@
 - [x] Ensure menu options visible on mobile
 - [x] Remove white background from logo image
 
+### Instagram Photos Integration
+- [ ] Download photos from client's Instagram profile
+- [ ] Upload Instagram photos to CDN
+- [ ] Update gallery with real Instagram photos
+- [ ] Test gallery display on all devices
+
 ### Deployment
 - [ ] Final checkpoint before publishing
 - [ ] Website ready for production
