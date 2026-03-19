@@ -64,6 +64,12 @@
 - [x] Integrate logo into website navigation
 - [x] Upload logo to CDN
 
+### Navigation Redesign
+- [x] Remove white navigation bar
+- [x] Make logo transparent with floating effect
+- [x] Add mobile hamburger menu
+- [x] Ensure menu options visible on mobile
+
 ### Deployment
 - [ ] Final checkpoint before publishing
 - [ ] Website ready for production

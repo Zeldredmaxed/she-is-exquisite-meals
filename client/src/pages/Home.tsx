@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { ChefHat, Leaf, Heart, Users, Mail, Phone, MapPin } from "lucide-react";
+import { Leaf, Heart, Users, Mail, Phone, MapPin, Menu, X } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 
@@ -13,6 +13,14 @@ const GALLERY_IMAGES = [
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663386607820/QjYBc4dVKTa2C8xKYrF7gq/gallery-1_024169cd.jpg",
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663386607820/QjYBc4dVKTa2C8xKYrF7gq/gallery-2_bde4e630.jpg",
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663386607820/QjYBc4dVKTa2C8xKYrF7gq/gallery-3_defb67af.jpg",
+];
+
+const NAV_LINKS = [
+  { label: "Services", href: "#services" },
+  { label: "Menu", href: "#menu" },
+  { label: "About", href: "#about" },
+  { label: "Gallery", href: "#gallery" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export default function Home() {
@@ -25,6 +33,7 @@ export default function Home() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -63,23 +72,58 @@ export default function Home() {
     }
   };
 
+  const handleNavClick = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
     <div className="min-h-screen bg-background">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-border">
-        <div className="container flex items-center justify-between h-16">
-          <div className="flex items-center gap-3">
-            <img src={LOGO_URL} alt="She Is Exquisite Meals" className="h-14 w-auto" />
-          </div>
-          <div className="hidden md:flex items-center gap-8">
-            <a href="#services" className="text-foreground hover:text-primary transition">Services</a>
-            <a href="#menu" className="text-foreground hover:text-primary transition">Menu</a>
-            <a href="#about" className="text-foreground hover:text-primary transition">About</a>
-            <a href="#gallery" className="text-foreground hover:text-primary transition">Gallery</a>
-            <a href="#contact" className="text-foreground hover:text-primary transition">Contact</a>
+      {/* Floating Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-8 py-4">
+        {/* Logo */}
+        <div className="flex items-center">
+          <img src={LOGO_URL} alt="She Is Exquisite Meals" className="h-12 md:h-16 w-auto drop-shadow-lg" />
+        </div>
+
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center gap-8">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="text-white hover:text-primary transition font-medium drop-shadow-md"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden text-white drop-shadow-lg"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
+      </nav>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="fixed top-16 left-0 right-0 z-40 bg-black/95 backdrop-blur md:hidden">
+          <div className="flex flex-col items-center gap-4 py-6 px-4">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-white hover:text-primary transition font-medium text-lg"
+                onClick={handleNavClick}
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
         </div>
-      </nav>
+      )}
 
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
