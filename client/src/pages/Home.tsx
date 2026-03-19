@@ -7,6 +7,7 @@ import { ChefHat, Leaf, Heart, Users, Mail, Phone, MapPin } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 
+const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663386607820/QjYBc4dVKTa2C8xKYrF7gq/logo-upscaled_e56ee9ef.png";
 const HERO_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663386607820/QjYBc4dVKTa2C8xKYrF7gq/hero-food-1_fbbf3fc2.jpg";
 const GALLERY_IMAGES = [
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663386607820/QjYBc4dVKTa2C8xKYrF7gq/gallery-1_024169cd.jpg",
@@ -67,9 +68,8 @@ export default function Home() {
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-border">
         <div className="container flex items-center justify-between h-16">
-          <div className="flex items-center gap-2">
-            <ChefHat className="w-8 h-8 text-primary" />
-            <span className="font-serif text-xl font-bold text-primary">She Is Exquisite</span>
+          <div className="flex items-center gap-3">
+            <img src={LOGO_URL} alt="She Is Exquisite Meals" className="h-14 w-auto" />
           </div>
           <div className="hidden md:flex items-center gap-8">
             <a href="#services" className="text-foreground hover:text-primary transition">Services</a>
